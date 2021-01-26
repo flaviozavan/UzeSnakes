@@ -23,12 +23,11 @@
 #include <uzebox.h>
 
 #include "data/tileset.inc"
-#include "data/font.inc"
 #include "data/patches.inc"
 #include "data/snake60.inc"
 #include "data/snake30.inc"
 
-
+#define NUM_NON_FONT_TILES (61-22)
 #define NUMERALSOFFSET 48
 #define LETTEROFFSET 52
 #define PLAYEROFFSET 9
@@ -82,7 +81,7 @@ const char strCopyright0[] PROGMEM = "@ FL?VIO ZAVAN 2010";
 const char strCopyright1[] PROGMEM = "LICENSED UNDER GNU GPL V3";
 const char strCopyright2[] PROGMEM = "MEDIA UNDER CC ASA 3 UNPORTED";
 const char strCopyright3[] PROGMEM = "MUSIC BY IDERALDO LUIZ DA SILVA";
-const char strCopyright4[] PROGMEM = "WWW DOT NEBOSOSO DOT COM";
+const char strCopyright4[] PROGMEM = "V 1 03";
 const char strMenu[MENUITEMS][11] PROGMEM = {{"1 PLAYER"},{"2 PLAYERS:"},
 	{"DELAY:"},{"MAZE:"},{"SOUND:"}};
 const char strMazes[MAZES][8] PROGMEM = {{"NONE"},{"BORDERS"},{"ROOMS"},
@@ -181,7 +180,7 @@ unsigned char menu(){
 	usPrint(18,22,strCopyright1);
 	usPrint(16,23,strCopyright2);
 	usPrint(15,24,strCopyright3);
-	usPrint(19,25,strCopyright4);
+	usPrint(27,25,strCopyright4);
 	//Print the options
 	for (unsigned char i = 0; i < MENUITEMS; i++){
 		usPrint(OPTIONSX,OPTIONSY+i,strMenu[i]);
@@ -523,11 +522,9 @@ void reverseSnake(unsigned char i){
 	char nx = snake[i].tailx;
 	char ny = snake[i].taily;
 	//Real variables for setting and getting pos
-	char ox, oy, x, y, rx, ry, rox, roy, rnx, rny;
+	char ox, oy, x, y, rx, ry, rnx, rny;
 	ox = 0;
 	oy = 0;
-	rox = 0;
-	roy = 0;
 	rnx = nx;
 	rny = ny;
 	for(unsigned char n = 0; n < snake[i].size; n++){
@@ -575,10 +572,8 @@ void reverseSnake(unsigned char i){
 		}
 		ox = x;
 		oy = y;
-		rox = rx;
-		roy = ry;
 	}
-	//Swtich head and tail
+	//Switch head and tail
 	snake[i].tailx ^= snake[i].headx;
 	snake[i].headx ^= snake[i].tailx;
 	snake[i].tailx ^= snake[i].headx;
@@ -1166,7 +1161,7 @@ int main(){
 	InitMusicPlayer(patches);
 	SetMasterVolume(0xb0);
 	SetTileTable(tileset);
-	SetFontTilesIndex(TILESET_SIZE);
+	SetFontTilesIndex(NUM_NON_FONT_TILES);
 	ClearVram();
 	//Intro
 	DrawMap2(16,11,uze);
