@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<gfx-xform version="1">
+	<input file="tileset.png" type="png" tile-width="6" tile-height="8"/>	
+	<output file="tileset.inc" type="code">
+		<tiles var-name="tileset"/>
+			<maps pointers-size="8">
+				<map var-name="logo" left="0" top="2" width="19" height="2" />
+				<map var-name="uze" left="0" top="4" width="14" height="5" />
+				<map var-name="box" left="0" top="10" width="14" height="5" />
+				<map var-name="sna" left="0" top="16" width="14" height="5" />
+				<map var-name="kes" left="0" top="22" width="14" height="5" />
+			</maps>
+	</output>
+</gfx-xform>
